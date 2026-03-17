@@ -33,6 +33,8 @@ extends:
                     pool:
                         type: linux
                     variables:
+                        ob_outputDirectory: '$(Build.SourcesDirectory)/out'
+                        ob_artifactBaseName: 'drop_UnitTests_$(NODE_VERSION)'
                         LinuxContainerImage: 'onebranch.azurecr.io/linux/ubuntu-2204:latest'
                     strategy:
                         matrix:
