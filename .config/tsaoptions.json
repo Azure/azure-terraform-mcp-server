@@ -2,7 +2,7 @@
   "codebaseName": "azure-terraform-mcp-server_main",
   "notificationAliases": ["aztfai@microsoft.com"],
   "codebaseAdmins": ["yunliu1@microsoft.com", "nanxu@microsoft.com", "xuwu1@microsoft.com"],
-  "instanceUrl": "https://dev.azure.com/azclitools/defaultcollection",
+  "instanceUrl": "https://dev.azure.com/azclitools",
   "projectName": "release",
   "areaPath": "release",
   "iterationPath": "release",
