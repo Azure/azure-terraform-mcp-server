@@ -135,7 +135,7 @@ export function getCacheStatus(): CacheStatus {
   return {
     rootPath,
     exists: existsSync(rootPath),
-    subdirectories: subdirectories as Record<CacheType, { exists: boolean; size?: number }>,
+    subdirectories: subdirectories as Record<CacheType, { path: string; exists: boolean; size?: number }>,
     totalSize,
   };
 }
@@ -182,7 +182,7 @@ export function clearAllCaches(): boolean {
 
     // Remove any other entries that are not in the preserved set
     for (const entry of readdirSync(rootPath)) {
-      if (!PRESERVED_ROOT_FILES.has(entry) && !Object.values(CACHE_SUBDIRS).includes(entry as string)) {
+      if (!PRESERVED_ROOT_FILES.has(entry) && !(Object.values(CACHE_SUBDIRS) as string[]).includes(entry)) {
         const entryPath = join(rootPath, entry);
         rmSync(entryPath, { recursive: true, force: true });
       }
