@@ -1,0 +1,44 @@
+parameters:
+    - name: NpmPublishTag
+      displayName: 'Tag'
+      type: string
+      default: 'latest'
+    - name: NpmPublishDryRun
+      displayName: 'Dry Run'
+      type: boolean
+      default: true
+
+trigger: none
+pr: none
+
+resources:
+    repositories:
+        - repository: templates
+          type: git
+          name: OneBranch.Pipelines/GovernedTemplates
+          ref: refs/heads/main
+    pipelines:
+        - pipeline: officialBuild
+          project: internal
+          source: terraform-mcp-server.official
+          branch: main
+
+extends:
+    template: v2/OneBranch.Official.CrossPlat.yml@templates
+    parameters:
+        stages:
+            - stage: Release
+              jobs:
+                  - job: Release
+                    pool:
+                        type: linux
+                    steps:
+                        - download: officialBuild
+                        - template: /azure-pipelines/templates/steps/setup-node.yml@self
+                          parameters:
+                              nodeVersion: '20.x'
+                        - template: /azure-pipelines/templates/steps/npm-publish.yml@self
+                          parameters:
+                              tgzPath: '$(Pipeline.Workspace)/officialBuild/drop'
+                              npmPublishTag: ${{ parameters.NpmPublishTag }}
+                              npmPublishDryRun: ${{ parameters.NpmPublishDryRun }}

@@ -1,0 +1,31 @@
+trigger:
+    batch: true
+    branches:
+        include:
+            - main
+
+resources:
+    repositories:
+        - repository: templates
+          type: git
+          name: OneBranch.Pipelines/GovernedTemplates
+          ref: refs/heads/main
+
+extends:
+    template: v2/OneBranch.Official.CrossPlat.yml@templates
+    parameters:
+        stages:
+            - template: /azure-pipelines/templates/stages/test.yml@self
+              parameters:
+                  name: WindowsUnitTests
+                  poolType: windows
+
+            - template: /azure-pipelines/templates/stages/test.yml@self
+              parameters:
+                  name: LinuxUnitTests
+                  poolType: linux
+
+            - stage: Build
+              dependsOn: []
+              jobs:
+                  - template: /azure-pipelines/templates/jobs/build.yml@self
