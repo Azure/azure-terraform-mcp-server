@@ -107,7 +107,9 @@ extends:
             # Produces .tgz artifact via ob_outputDirectory
             #------------------------------------------------------------
             - stage: Build
-              dependsOn: []
+              dependsOn:
+                  - WindowsUnitTests
+                  - LinuxUnitTests
               jobs:
                   - job: Build
                     pool:
