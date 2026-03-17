@@ -22,8 +22,9 @@ resources:
 extends:
     template: v2/OneBranch.Official.CrossPlat.yml@templates
     parameters:
-        tsa:
-            enabled: false
+        globalSdl:
+            tsa:
+                enabled: false
         stages:
             #------------------------------------------------------------
             # Stage: Linux Unit Tests
