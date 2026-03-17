@@ -54,6 +54,10 @@ extends:
                           inputs:
                               versionSpec: '20.x'
                           displayName: 'Install Node.js 20.x'
+                        - task: npmAuthenticate@0
+                          inputs:
+                              workingFile: .npmrc
+                          displayName: 'Authenticate npm feed'
                         - script: npm ci
                           displayName: 'npm ci'
                         # Rename to a stable filename for npm publish
