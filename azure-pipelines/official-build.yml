@@ -33,7 +33,6 @@ extends:
                     pool:
                         type: linux
                     variables:
-                        ob_outputDirectory: '$(Build.SourcesDirectory)/out'
                         LinuxContainerImage: 'onebranch.azurecr.io/linux/ubuntu-2204:latest'
                     strategy:
                         matrix:
