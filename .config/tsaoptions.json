@@ -1,12 +1,10 @@
 {
-  "codebaseName": "azure-terraform-mcp-server",
+  "codebaseName": "azure-terraform-mcp-server_main",
   "notificationAliases": ["aztfai@microsoft.com"],
   "codebaseAdmins": ["yunliu1@microsoft.com", "nanxu@microsoft.com", "xuwu1@microsoft.com"],
-  "instanceUrl": "https://dev.azure.com/azclitools/",
+  "instanceUrl": "https://dev.azure.com/azclitools/defaultcollection",
   "projectName": "release",
   "areaPath": "release",
   "iterationPath": "release",
-  "tools": ["credscan", "eslint"],
-  "repositoryUrl": "https://github.com/Azure/azure-terraform-mcp-server",
-  "bugTags": ["SDL", "azure-terraform-mcp-server"]
+  "tools": ["CredScan", "ESLint"]
 }
