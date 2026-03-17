@@ -35,6 +35,8 @@ extends:
                     variables:
                         # Required by OneBranch even for non-artifact jobs
                         ob_outputDirectory: '$(Build.SourcesDirectory)/out'
+                        # Container image for OneBranch containerized builds
+                        WindowsContainerImage: 'onebranch.azurecr.io/windows/ltsc2022/vse2022:latest'
                     strategy:
                         matrix:
                             Node20:
@@ -74,6 +76,7 @@ extends:
                         type: linux
                     variables:
                         ob_outputDirectory: '$(Build.SourcesDirectory)/out'
+                        LinuxContainerImage: 'onebranch.azurecr.io/linux/ubuntu-2204:latest'
                     strategy:
                         matrix:
                             Node20:
@@ -117,6 +120,7 @@ extends:
                     variables:
                         ob_outputDirectory: '$(Build.ArtifactStagingDirectory)/out'
                         ob_git_checkout: true
+                        LinuxContainerImage: 'onebranch.azurecr.io/linux/ubuntu-2204:latest'
                     steps:
                         - task: NodeTool@0
                           inputs:
