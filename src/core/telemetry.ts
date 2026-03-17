@@ -364,11 +364,11 @@ export async function shutdownTelemetry(): Promise<void> {
  * Higher-order function decorator for tracking tool calls
  * Usage: const wrappedTool = wrapToolWithTelemetry(toolName)(originalFunction)
  */
-export function wrapToolWithTelemetry<T extends (...args: any[]) => Promise<any>>(
+export function wrapToolWithTelemetry<T extends (...args: unknown[]) => Promise<unknown>>(
   toolName: string
 ): (fn: T) => T {
   return (fn: T) => {
-    return (async (...args: any[]) => {
+    return (async (...args: unknown[]) => {
       const startTime = performance.now();
       let success = true;
       let errorType: string | undefined;
@@ -391,11 +391,11 @@ export function wrapToolWithTelemetry<T extends (...args: any[]) => Promise<any>
 /**
  * Create a sync wrapper for tool calls
  */
-export function wrapToolCallSync<T extends (...args: any[]) => any>(
+export function wrapToolCallSync<T extends (...args: unknown[]) => unknown>(
   toolName: string
 ): (fn: T) => T {
   return (fn: T) => {
-    return ((...args: any[]) => {
+    return ((...args: unknown[]) => {
       const startTime = performance.now();
       let success = true;
       let errorType: string | undefined;

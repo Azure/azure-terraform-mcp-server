@@ -265,7 +265,7 @@ export function verifyPolicyDirectory(policyPath: string): PolicyVerification {
       missingExpected,
       totalFiles,
     };
-  } catch (error) {
+  } catch {
     return {
       valid: false,
       path: policyPath,
