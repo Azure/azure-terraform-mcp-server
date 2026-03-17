@@ -332,6 +332,15 @@ export async function installConftest(
 
     const installCmd = getInstallCommand(currentPlatform, manager);
     if (!installCmd) {
+      if (dryRun && manager.name === 'manual') {
+        installStep = {
+          step: 'install',
+          success: true,
+          message: `[DRY RUN] Would install manually on ${currentPlatform}`,
+        };
+        steps.push(installStep);
+        break;
+      }
       log(verbose, `Skipping ${manager.name} (manual install required)`);
       continue;
     }
