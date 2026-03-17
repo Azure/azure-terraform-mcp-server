@@ -35,7 +35,7 @@ extends:
                     variables:
                         ob_outputDirectory: '$(Build.SourcesDirectory)/out'
                         ob_artifactBaseName: 'drop_UnitTests_$(NODE_VERSION)'
-                        LinuxContainerImage: 'onebranch.azurecr.io/linux/ubuntu-2204:latest'
+                        LinuxContainerImage: 'mcr.microsoft.com/onebranch/azurelinux/build:3.0'
                     strategy:
                         matrix:
                             Node20:
@@ -82,7 +82,7 @@ extends:
                     variables:
                         ob_outputDirectory: '$(Build.ArtifactStagingDirectory)/out'
                         ob_git_checkout: true
-                        LinuxContainerImage: 'onebranch.azurecr.io/linux/ubuntu-2204:latest'
+                        LinuxContainerImage: 'mcr.microsoft.com/onebranch/azurelinux/build:3.0'
                     steps:
                         - task: NodeTool@0
                           inputs:
