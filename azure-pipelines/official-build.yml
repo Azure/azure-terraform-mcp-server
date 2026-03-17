@@ -115,5 +115,5 @@ extends:
                           displayName: 'npm pack'
                           workingDirectory: '$(Build.ArtifactStagingDirectory)/dropInput'
                         # Move .tgz to ob_outputDirectory for automatic artifact publishing
-                        - script: mv $(Build.ArtifactStagingDirectory)/dropInput/*.tgz $(ob_outputDirectory)/
+                        - script: mkdir -p $(ob_outputDirectory) && mv $(Build.ArtifactStagingDirectory)/dropInput/*.tgz $(ob_outputDirectory)/
                           displayName: 'Move package to output directory'
