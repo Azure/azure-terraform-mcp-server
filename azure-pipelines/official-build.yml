@@ -64,12 +64,6 @@ extends:
                           displayName: 'npm run typecheck'
                         - script: npm test
                           displayName: 'Run unit tests'
-                        - task: PublishTestResults@2
-                          displayName: 'Publish Unit Test Results'
-                          inputs:
-                              testResultsFiles: 'test-results/*.xml'
-                              testRunTitle: '$(Agent.JobName)'
-                          condition: succeededOrFailed()
 
             #------------------------------------------------------------
             # Stage: Build & Package
