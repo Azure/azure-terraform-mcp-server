@@ -539,6 +539,10 @@ Resources:
 - Contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with questions or concerns
 - Employees can reach out at [aka.ms/opensource/moderation-support](https://aka.ms/opensource/moderation-support)
 
+## Trademarks
+
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general). Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship. Any use of third-party trademarks or logos are subject to those third-party's policies.
+
 ## Related Projects
 
 - [Model Context Protocol](https://modelcontextprotocol.io/)
