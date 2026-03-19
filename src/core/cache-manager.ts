@@ -135,7 +135,7 @@ export function getCacheStatus(): CacheStatus {
   return {
     rootPath,
     exists: existsSync(rootPath),
-    subdirectories: subdirectories as Record<CacheType, any>,
+    subdirectories: subdirectories as Record<CacheType, { path: string; exists: boolean; size?: number }>,
     totalSize,
   };
 }
@@ -182,7 +182,7 @@ export function clearAllCaches(): boolean {
 
     // Remove any other entries that are not in the preserved set
     for (const entry of readdirSync(rootPath)) {
-      if (!PRESERVED_ROOT_FILES.has(entry) && !Object.values(CACHE_SUBDIRS).includes(entry as any)) {
+      if (!PRESERVED_ROOT_FILES.has(entry) && !(Object.values(CACHE_SUBDIRS) as string[]).includes(entry)) {
         const entryPath = join(rootPath, entry);
         rmSync(entryPath, { recursive: true, force: true });
       }
@@ -208,7 +208,7 @@ export function cleanExpiredTempFiles(): number {
   }
 
   try {
-    const files = require('node:fs').readdirSync(tempPath);
+    const files = readdirSync(tempPath);
     const now = Date.now();
 
     for (const file of files) {
@@ -254,7 +254,7 @@ function calculateDirSize(dirPath: string): number {
   let size = 0;
 
   try {
-    const files = require('node:fs').readdirSync(dirPath);
+    const files = readdirSync(dirPath);
 
     for (const file of files) {
       const filePath = join(dirPath, file);
@@ -277,7 +277,9 @@ function calculateDirSize(dirPath: string): number {
  * Format bytes as human-readable size.
  */
 export function formatBytes(bytes: number): string {
-  if (bytes === 0) return '0 B';
+  if (bytes === 0) {
+    return '0 B';
+  }
 
   const k = 1024;
   const sizes = ['B', 'KB', 'MB', 'GB'];

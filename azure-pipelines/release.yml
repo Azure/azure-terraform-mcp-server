@@ -1,3 +1,13 @@
+#################################################################################
+#                               OneBranch Pipelines                             #
+# Documentation:  https://aka.ms/obpipelines                                    #
+# Yaml Schema:    https://aka.ms/obpipelines/yaml/schema                        #
+# Retail Tasks:   https://aka.ms/obpipelines/tasks                              #
+#################################################################################
+
+# Release pipeline — manually triggered, publishes to npm.
+# Set NpmPublishDryRun to false to perform a real publish.
+
 parameters:
     - name: NpmPublishTag
       displayName: 'Tag'
@@ -18,6 +28,7 @@ resources:
           name: OneBranch.Pipelines/GovernedTemplates
           ref: refs/heads/main
     pipelines:
+        # Consumes the artifact produced by the official build pipeline
         - pipeline: officialBuild
           project: internal
           source: terraform-mcp-server.official
@@ -27,18 +38,39 @@ extends:
     template: v2/OneBranch.Official.CrossPlat.yml@templates
     parameters:
         stages:
-            - stage: Release
+            - stage: ESRP_Release_Ado_Task
+              displayName: 'ESRP Release Ado Task'
+              variables:
+                  - group: 'AME ESRP Variable Group' # Provides: ESRPServiceConnectionName, ESRPAppClientId, ESRPAppTenantId, ESRPKVName, ESRPAuthCertName, ESRPSignCertName
+                  - name: ob_release_environment
+                    value: Production
+              dependsOn: []
               jobs:
-                  - job: Release
+                  - job: publish_to_npm
+                    templateContext:
+                        inputs:
+                            - input: pipelineArtifact
+                              pipeline: officialBuild
+                              artifactName: drop
+                    displayName: Publish to NPM
                     pool:
-                        type: linux
+                        type: release
                     steps:
-                        - download: officialBuild
-                        - template: /azure-pipelines/templates/steps/setup-node.yml@self
-                          parameters:
-                              nodeVersion: '20.x'
-                        - template: /azure-pipelines/templates/steps/npm-publish.yml@self
-                          parameters:
-                              tgzPath: '$(Pipeline.Workspace)/officialBuild/drop'
-                              npmPublishTag: ${{ parameters.NpmPublishTag }}
-                              npmPublishDryRun: ${{ parameters.NpmPublishDryRun }}
+                        - task: EsrpRelease@8
+                          displayName: 'Publish to NPM'
+                          inputs:
+                              connectedservicename: '$(ESRPServiceConnectionName)'
+                              keyvaultname: '$(ESRPKVName)'
+                              authcertname: '$(ESRPAuthCertName)'
+                              signcertname: '$(ESRPSignCertName)'
+                              clientid: '$(ESRPAppClientId)'
+                              intent: 'packagedistribution'
+                              contenttype: 'npm'
+                              contentsource: 'Folder'
+                              folderlocation: '$(Pipeline.Workspace)/officialBuild/drop'
+                              waitforreleasecompletion: true
+                              owners: 'aztfai@microsoft.com'
+                              approvers: 'aztfai@microsoft.com'
+                              serviceendpointurl: 'https://api.esrp.microsoft.com'
+                              mainpublisher: 'ESRPRELPACMAN'
+                              domaintenantid: '$(ESRPAppTenantId)'
