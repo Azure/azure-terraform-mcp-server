@@ -95,7 +95,6 @@ export function generateExportAzureResourceCommand(
     outputFolderName,
     provider = 'azurerm',
     resourceName,
-    dryRun = false,
     includeRoleAssignment = false,
     parallelism = 10,
     continueOnError = true,
@@ -109,10 +108,6 @@ export function generateExportAzureResourceCommand(
 
   if (resourceName) {
     args.push('--name', resourceName);
-  }
-
-  if (dryRun) {
-    args.push('--dry-run');
   }
 
   if (includeRoleAssignment) {
@@ -137,7 +132,6 @@ export function generateExportAzureResourceCommand(
     notes: [
       'This command exports a single Azure resource to Terraform configuration.',
       outputDir ? `Output will be saved to: ${outputDir}` : 'Output will be saved to the current working directory',
-      dryRun ? 'This is a dry-run - no files will be created' : 'Terraform files will be generated',
     ],
   };
 
@@ -159,7 +153,6 @@ export function generateExportAzureResourceGroupCommand(
     outputFolderName,
     provider = 'azurerm',
     namePattern,
-    dryRun = false,
     includeRoleAssignment = false,
     parallelism = 10,
     continueOnError = true,
@@ -173,10 +166,6 @@ export function generateExportAzureResourceGroupCommand(
 
   if (namePattern) {
     args.push('--name-pattern', namePattern);
-  }
-
-  if (dryRun) {
-    args.push('--dry-run');
   }
 
   if (includeRoleAssignment) {
@@ -201,7 +190,6 @@ export function generateExportAzureResourceGroupCommand(
     notes: [
       'This command exports an entire Azure resource group and all its resources to Terraform configuration.',
       outputDir ? `Output will be saved to: ${outputDir}` : 'Output will be saved to the current working directory',
-      dryRun ? 'This is a dry-run - no files will be created' : 'Terraform files will be generated',
       `Using provider: ${provider}`,
     ],
   };
@@ -224,7 +212,6 @@ export function generateExportAzureResourcesByQueryCommand(
     outputFolderName,
     provider = 'azurerm',
     namePattern,
-    dryRun = false,
     includeRoleAssignment = false,
     parallelism = 10,
     continueOnError = true,
@@ -238,10 +225,6 @@ export function generateExportAzureResourcesByQueryCommand(
 
   if (namePattern) {
     args.push('--name-pattern', namePattern);
-  }
-
-  if (dryRun) {
-    args.push('--dry-run');
   }
 
   if (includeRoleAssignment) {
@@ -266,7 +249,6 @@ export function generateExportAzureResourcesByQueryCommand(
     notes: [
       'This command exports Azure resources matching the given Azure Resource Graph query to Terraform configuration.',
       outputDir ? `Output will be saved to: ${outputDir}` : 'Output will be saved to the current working directory',
-      dryRun ? 'This is a dry-run - no files will be created' : 'Terraform files will be generated',
       `Query: ${query}`,
       `Using provider: ${provider}`,
     ],
