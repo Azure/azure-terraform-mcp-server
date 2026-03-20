@@ -189,7 +189,6 @@ describe('ExportAzureResourceParams', () => {
     if (result.success) {
       expect(result.data.resourceId).toContain('/subscriptions/');
       expect(result.data.provider).toBe('azurerm'); // default
-      expect(result.data.dryRun).toBe(false); // default
       expect(result.data.parallelism).toBe(10); // default
     }
   });
@@ -200,8 +199,6 @@ describe('ExportAzureResourceParams', () => {
       outputFolderName: 'output',
       provider: 'azapi',
       resourceName: 'my_vm',
-      resourceType: 'azapi_resource',
-      dryRun: true,
       includeRoleAssignment: true,
       parallelism: 5,
       continueOnError: true,
@@ -210,7 +207,6 @@ describe('ExportAzureResourceParams', () => {
     expect(result.success).toBe(true);
     if (result.success) {
       expect(result.data.provider).toBe('azapi');
-      expect(result.data.dryRun).toBe(true);
       expect(result.data.parallelism).toBe(5);
     }
   });
@@ -265,13 +261,11 @@ describe('ExportAzureResourceGroupParams', () => {
     const result = ExportAzureResourceGroupParams.safeParse({
       resourceGroupName: 'rg-production',
       namePattern: 'prod_{name}',
-      typePattern: 'Microsoft.Storage/*',
     });
 
     expect(result.success).toBe(true);
     if (result.success) {
       expect(result.data.namePattern).toBe('prod_{name}');
-      expect(result.data.typePattern).toBe('Microsoft.Storage/*');
     }
   });
 });
