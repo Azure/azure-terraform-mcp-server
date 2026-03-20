@@ -177,7 +177,6 @@ export interface ExportResourceOptions {
   outputFolderName?: string;
   provider?: AztfexportProvider;
   resourceName?: string;
-  resourceType?: string;
   dryRun?: boolean;
   includeRoleAssignment?: boolean;
   parallelism?: number;
@@ -189,7 +188,6 @@ export interface ExportResourceGroupOptions {
   outputFolderName?: string;
   provider?: AztfexportProvider;
   namePattern?: string;
-  typePattern?: string;
   dryRun?: boolean;
   includeRoleAssignment?: boolean;
   parallelism?: number;
@@ -201,7 +199,6 @@ export interface ExportQueryOptions {
   outputFolderName?: string;
   provider?: AztfexportProvider;
   namePattern?: string;
-  typePattern?: string;
   dryRun?: boolean;
   includeRoleAssignment?: boolean;
   parallelism?: number;
@@ -385,7 +382,6 @@ export const ExportAzureResourceParams = z.object({
   outputFolderName: z.string().optional().describe('Output folder name (created under workspace root)'),
   provider: z.enum(['azurerm', 'azapi']).default('azurerm').describe('Terraform provider to use'),
   resourceName: z.string().optional().describe('Custom resource name in Terraform'),
-  resourceType: z.string().optional().describe('Custom resource type in Terraform'),
   dryRun: z.boolean().default(false).describe('Perform a dry run without creating files'),
   includeRoleAssignment: z.boolean().default(false).describe('Include role assignments in export'),
   parallelism: z.number().min(1).max(50).default(10).describe('Number of parallel operations'),
@@ -397,7 +393,6 @@ export const ExportAzureResourceGroupParams = z.object({
   outputFolderName: z.string().optional().describe('Output folder name (created under workspace root)'),
   provider: z.enum(['azurerm', 'azapi']).default('azurerm').describe('Terraform provider to use'),
   namePattern: z.string().optional().describe('Pattern for resource naming in Terraform'),
-  typePattern: z.string().optional().describe('Pattern for resource type filtering'),
   dryRun: z.boolean().default(false).describe('Perform a dry run without creating files'),
   includeRoleAssignment: z.boolean().default(false).describe('Include role assignments in export'),
   parallelism: z.number().min(1).max(50).default(10).describe('Number of parallel operations'),
@@ -409,7 +404,6 @@ export const ExportAzureResourcesByQueryParams = z.object({
   outputFolderName: z.string().optional().describe('Output folder name (created under workspace root)'),
   provider: z.enum(['azurerm', 'azapi']).default('azurerm').describe('Terraform provider to use'),
   namePattern: z.string().optional().describe('Pattern for resource naming in Terraform'),
-  typePattern: z.string().optional().describe('Pattern for resource type filtering'),
   dryRun: z.boolean().default(false).describe('Perform a dry run without creating files'),
   includeRoleAssignment: z.boolean().default(false).describe('Include role assignments in export'),
   parallelism: z.number().min(1).max(50).default(10).describe('Number of parallel operations'),

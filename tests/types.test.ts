@@ -200,7 +200,6 @@ describe('ExportAzureResourceParams', () => {
       outputFolderName: 'output',
       provider: 'azapi',
       resourceName: 'my_vm',
-      resourceType: 'azapi_resource',
       dryRun: true,
       includeRoleAssignment: true,
       parallelism: 5,
@@ -265,13 +264,11 @@ describe('ExportAzureResourceGroupParams', () => {
     const result = ExportAzureResourceGroupParams.safeParse({
       resourceGroupName: 'rg-production',
       namePattern: 'prod_{name}',
-      typePattern: 'Microsoft.Storage/*',
     });
 
     expect(result.success).toBe(true);
     if (result.success) {
       expect(result.data.namePattern).toBe('prod_{name}');
-      expect(result.data.typePattern).toBe('Microsoft.Storage/*');
     }
   });
 });

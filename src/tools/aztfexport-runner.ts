@@ -95,7 +95,6 @@ export function generateExportAzureResourceCommand(
     outputFolderName,
     provider = 'azurerm',
     resourceName,
-    resourceType,
     dryRun = false,
     includeRoleAssignment = false,
     parallelism = 10,
@@ -110,10 +109,6 @@ export function generateExportAzureResourceCommand(
 
   if (resourceName) {
     args.push('--name', resourceName);
-  }
-
-  if (resourceType) {
-    args.push('--type', resourceType);
   }
 
   if (dryRun) {
@@ -164,7 +159,6 @@ export function generateExportAzureResourceGroupCommand(
     outputFolderName,
     provider = 'azurerm',
     namePattern,
-    typePattern,
     dryRun = false,
     includeRoleAssignment = false,
     parallelism = 10,
@@ -179,10 +173,6 @@ export function generateExportAzureResourceGroupCommand(
 
   if (namePattern) {
     args.push('--name-pattern', namePattern);
-  }
-
-  if (typePattern) {
-    args.push('--type-pattern', typePattern);
   }
 
   if (dryRun) {
@@ -234,7 +224,6 @@ export function generateExportAzureResourcesByQueryCommand(
     outputFolderName,
     provider = 'azurerm',
     namePattern,
-    typePattern,
     dryRun = false,
     includeRoleAssignment = false,
     parallelism = 10,
@@ -249,10 +238,6 @@ export function generateExportAzureResourcesByQueryCommand(
 
   if (namePattern) {
     args.push('--name-pattern', namePattern);
-  }
-
-  if (typePattern) {
-    args.push('--type-pattern', typePattern);
   }
 
   if (dryRun) {
